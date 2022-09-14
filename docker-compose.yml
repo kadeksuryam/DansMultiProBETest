@@ -1,0 +1,32 @@
+# ref: https://hub.docker.com/r/bitnami/postgresql/
+# ref: https://github.com/bitnami/bitnami-docker-postgresql
+version: '3.5'
+
+services:
+  db:
+    image: docker.io/bitnami/postgresql:14
+    ports:
+      - "5432:5432"
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    env_file:
+      - .env
+    environment:
+      POSTGRESQL_USERNAME: ${TESTDB_DATASOURCE_USERNAME}
+      POSTGRESQL_PASSWORD: ${TESTDB_DATASOURCE_PASSWORD}
+      POSTGRESQL_DATABASE: testdb
+
+  api-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  postgresql_data:
+    driver: local

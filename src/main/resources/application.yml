@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path: /api
+  port: 8080
+  compression:
+    enabled: true
+    min-response-size: 2048
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  max-http-header-size: 32KB
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/testdb
+    username: ${TESTDB_DATASOURCE_USERNAME}
+    password: ${TESTDB_DATASOURCE_PASSWORD}
+    hikari:
+      connection-timeout: '30000'
+      driver-class-name: org.postgresql.Driver
+      idle-timeout: '30000'
+      maximum-pool-size: '30'
+      max-life-time: '600000'
+      minimum-idle: '30'
+      validation-timeout: '20000'
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+jwt:
+  key:
+    public: |-
+      ${JWT_KEY_PUBLIC}
+    private: |-
+      ${JWT_KEY_PRIVATE}
+  accessToken:
+    expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
