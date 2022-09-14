@@ -12,7 +12,7 @@ http://surya-dansbetest.koreacentral.cloudapp.azure.com/api/swagger-ui.html
 - Create `.env` file on root directory that will contains application secrets, you can ask me for the secrets
 - Run `. ./init.sh` on current terminal
 - Build the jar by executing `./gradlew build`
-- Run `docker compose up --build`
+- Run `docker compose up --build -d`
 - Initialize DB Tables by executing `./initDB.sh`
 - Application will started on port 8080 and you can see API documentation on:
 http://localhost:8080/api/swagger-ui.html
